@@ -1,0 +1,51 @@
+﻿<Window x:Class="Image_Stitcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Image_Stitcher"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1280">
+
+    <Grid x:Name="btn_open">
+        <Button x:Name="btn_load" Content="Load" HorizontalAlignment="Left" Margin="294,55,0,0" VerticalAlignment="Top" Height="43" Width="43" Click="btn_load_Click"/>
+        <TextBox x:Name="txt_path" HorizontalAlignment="Left" Margin="70,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Path" HorizontalAlignment="Left" Margin="20,17,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txt_info" HorizontalAlignment="Left" Margin="70,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="43"/>
+        <Label Content="Info." HorizontalAlignment="Left" Margin="20,51,0,0" VerticalAlignment="Top"/>
+        <ListView x:Name="list_image" HorizontalAlignment="Left" Margin="70,121,0,30" Width="267">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header = "ID" 
+                        DisplayMemberBinding = "{Binding ID}" Width = "25"/>
+
+                    <GridViewColumn Header = "Image">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path=Path}" Width="180" Height="180" ></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="btn_open1" Content="Open" HorizontalAlignment="Left" Margin="294,20,0,0" VerticalAlignment="Top" Width="43" Click="btn_open_Click"/>
+        <Rectangle HorizontalAlignment="Left" Height="78" Margin="454,20,0,0" Stroke="Black" VerticalAlignment="Top" Width="668"/>
+        <Label Content="Output Filename" HorizontalAlignment="Left" Margin="469,30,0,0" VerticalAlignment="Top"/>
+        <Label Content="Board Scale" HorizontalAlignment="Left" Margin="469,64,0,0" VerticalAlignment="Top" Width="90"/>
+        <ComboBox HorizontalAlignment="Left" Margin="640,32,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem>barcode</ComboBoxItem>
+        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Margin="640,64,0,0" VerticalAlignment="Top" Width="120" >
+            <ComboBoxItem>200</ComboBoxItem>
+            <ComboBoxItem>100</ComboBoxItem>
+            <ComboBoxItem>50</ComboBoxItem>
+        </ComboBox>
+        <Label Content="%" HorizontalAlignment="Left" Margin="768,64,0,0" VerticalAlignment="Top"/>
+        <Rectangle HorizontalAlignment="Left" Height="415" Margin="454,121,0,0" Stroke="Black" VerticalAlignment="Top" Width="668"/>
+        <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="917,38,0,0" VerticalAlignment="Top" Height="37" Width="104"/>
+
+    </Grid>
+</Window>
