@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Forms;
+using System.Diagnostics;
+
 
 namespace Image_Stitcher
 {
@@ -24,11 +26,12 @@ namespace Image_Stitcher
     {
         public MainWindow()
         {
-            
 
+            string a = System.AppDomain.CurrentDomain.BaseDirectory;
+            Debug.WriteLine(a);
             InitializeComponent();
 
-            //list_image.Items.Add(new input_image() { ID=})
+
         }
 
         
@@ -42,22 +45,39 @@ namespace Image_Stitcher
 
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
-            list_image.Items.Clear();
-            String[] images = Directory.GetFiles(txt_path.Text);
-            
-            //load the list image list
-            int j = 0;
-            foreach (string img in images)
+            if (string.IsNullOrEmpty(txt_path.Text))
             {
-
-                list_image.Items.Add(new input_image() { ID = j.ToString(), Path = img.ToString() });             
-                j++;
+                DateTime d = new DateTime();
+                d = DateTime.Now;
+                Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": No path has been selected.");
+                Status_Box.AppendText(Environment.NewLine);
             }
-            txt_info.Text = "Total_image: " + j.ToString();
-            if (j == 0)
+            else
             {
-                error msg = new error();
-                msg.ShowDialog();
+                // Clear the ListView
+                list_image.Items.Clear();
+
+                // Get only file paths with image extension
+                var files = Directory.EnumerateFiles(txt_path.Text, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".png") || s.EndsWith(".jpg") || s.EndsWith(".tiff"));
+                string[] images = (from string c in files select c.ToString()).ToArray();
+
+                // Load the images list to ListView
+                int j = 1;
+                foreach (string img in images)
+                {
+
+                    list_image.Items.Add(new input_image() { ID = j.ToString(), Path = img.ToString() });
+                    j++;
+                }
+
+                // Show number of images in info textbox
+                txt_info.Text = "Total_image: " + (j - 1).ToString();
+
+                if (j == 0)
+                {
+                    error msg = new error();
+                    msg.ShowDialog();
+                }
             }
         }
 

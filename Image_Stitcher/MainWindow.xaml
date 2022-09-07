@@ -5,31 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Image_Stitcher"
         mc:Ignorable="d"
-        Title="Image Stitcher" Height="720" Width="1280" MinWidth="1280" MinHeight="720" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
+        Title="Image Stitcher" Height="768" Width="1366" MinWidth="1366" MinHeight="768" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" >
     <Window.Style>
         <Style/>
     </Window.Style>
 
-    <Grid x:Name="main_grid" Background="#FFA5A5A5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="262*"/>
-            <ColumnDefinition Width="823*"/>
-            <ColumnDefinition Width="17*"/>
-            <ColumnDefinition Width="123*"/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="btn_load" Content="Load" HorizontalAlignment="Left" Margin="239,55,0,0" VerticalAlignment="Top" Height="43" Width="43" Click="btn_load_Click" Grid.Column="2" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txt_path" HorizontalAlignment="Left" Margin="15,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="24" Grid.Column="2"/>
-        <Label Content="Path" HorizontalAlignment="Left" Margin="11,17,0,0" VerticalAlignment="Top" FontFamily="Input" Width="39" FontWeight= "Bold" Grid.Column="1"/>
-        <TextBox x:Name="txt_info" HorizontalAlignment="Left" Margin="15,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="43" Grid.Column="2"/>
-        <Label Content="Info" HorizontalAlignment="Left" Margin="11,51,0,0" VerticalAlignment="Top" FontFamily= "Input" FontWeight= "Bold" Grid.Column="1"/>
-        <ListView x:Name="list_image" HorizontalAlignment="Left" Margin="15,121,0,30" Width="267" Grid.Column="2" SelectionChanged="list_image_SelectionChanged" Grid.ColumnSpan="2">
+    <Grid x:Name="main_grid" Background="#FFA5A5A5" Margin="0,0,0,0">
+        <Button x:Name="btn_load" Content="Load" HorizontalAlignment="Left" Margin="290,76,0,0" VerticalAlignment="Top" Height="44" Width="43" Click="btn_load_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <TextBox x:Name="txt_path" HorizontalAlignment="Left" Margin="53,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Height="44"/>
+        <Label Content="Path" HorizontalAlignment="Left" Margin="8,17,0,0" VerticalAlignment="Top" FontFamily="Input" Width="39" FontWeight= "Bold"/>
+        <TextBox x:Name="txt_info" HorizontalAlignment="Left" Margin="53,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Height="44"/>
+        <Label Content="Info" HorizontalAlignment="Left" Margin="8,76,0,0" VerticalAlignment="Top" FontFamily= "Input" FontWeight= "Bold"/>
+        <ListView x:Name="list_image" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="53,135,0,33" Width="280" SelectionChanged="list_image_SelectionChanged" Height="584">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header = "ID" Width = "30"/>
+                    <GridViewColumn Header = "ID" Width = "30" DisplayMemberBinding="{Binding ID}"/>
 
-                    <GridViewColumn Header = "Images" Width="237">
+
+                    <GridViewColumn Header = "Images" Width="250">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding Path=Path}" Width="180" Height="180" ></Image>
@@ -41,15 +40,22 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btn_open1" Content="Open" HorizontalAlignment="Left" Margin="239,17,0,0" VerticalAlignment="Top" Width="43" Click="btn_open_Click" Grid.Column="2" Height="24" Grid.ColumnSpan="2"/>
-        <Rectangle HorizontalAlignment="Left" Height="78" Margin="137,121,0,0" Stroke="Black" VerticalAlignment="Top" Width="764" Grid.Column="3" Grid.ColumnSpan="3"/>
-        <Label Content="Output Filename" HorizontalAlignment="Left" Margin="152,134,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-        <ComboBox HorizontalAlignment="Left" Margin="323,136,0,0" VerticalAlignment="Top" Width="120" Grid.Column="3">
-            <ComboBoxItem>barcode</ComboBoxItem>
-        </ComboBox>
-        <Rectangle HorizontalAlignment="Left" Height="445" Margin="137,229,0,0" Stroke="Black" VerticalAlignment="Top" Width="764" Grid.Column="3" Grid.ColumnSpan="3"/>
-        <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="761,137,0,0" VerticalAlignment="Top" Height="37" Width="104" Grid.Column="3" Grid.ColumnSpan="3"/>
-        <TextBlock x:Name="Status_Box" Grid.Column="3" HorizontalAlignment="Left" Margin="137,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White" Height="81" Width="764" Grid.ColumnSpan="3"/>
+
+        <Button x:Name="btn_open1" Content="Open" HorizontalAlignment="Left" Margin="290,17,0,0" VerticalAlignment="Top" Width="43" Click="btn_open_Click" Height="44">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Rectangle HorizontalAlignment="Left" Height="70" Margin="431,135,0,0" Stroke="Black" VerticalAlignment="Top" Width="909"/>
+        <Label Content="Output Filename" HorizontalAlignment="Left" Margin="450,150,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13
+               "/>
+        <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="1225,153,0,0" VerticalAlignment="Top" Height="36" Width="104"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="366,17,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.24,0.383" FontFamily="Input" FontWeight="Bold" Width="60" FontSize="13"/>
+
+        <TextBox x:Name="Status_Box" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="431,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="909" Height="103"/>
+
 
     </Grid>
 </Window>
