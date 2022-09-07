@@ -27,7 +27,7 @@ namespace Image_Stitcher
             
 
             InitializeComponent();
-            
+
             //list_image.Items.Add(new input_image() { ID=})
         }
 
@@ -66,6 +66,11 @@ namespace Image_Stitcher
             var dialog = new FolderBrowserDialog();
             dialog.ShowDialog();
             txt_path.Text = dialog.SelectedPath;
+
+        }
+
+        private void list_image_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }

@@ -22,3 +22,5 @@ D:\Placeholder\Image-Stitcher\Image_Stitcher\obj\Debug\net6.0-windows\refint\Ima
 D:\Placeholder\Image-Stitcher\Image_Stitcher\obj\Debug\net6.0-windows\Image_Stitcher.pdb
 D:\Placeholder\Image-Stitcher\Image_Stitcher\obj\Debug\net6.0-windows\Image_Stitcher.genruntimeconfig.cache
 D:\Placeholder\Image-Stitcher\Image_Stitcher\obj\Debug\net6.0-windows\ref\Image_Stitcher.dll
+D:\Placeholder\Image-Stitcher\Image_Stitcher\obj\Debug\net6.0-windows\Image_Stitcher.Resource1.resources
+D:\Placeholder\Image-Stitcher\Image_Stitcher\obj\Debug\net6.0-windows\Image_Stitcher.csproj.GenerateResource.cache

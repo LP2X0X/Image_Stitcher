@@ -8,7 +8,7 @@
         Title="error" Height="250" Width="300">
     <Grid>
         <TextBox HorizontalAlignment="Center" Margin="0,149,0,0" TextWrapping="Wrap" Text="NO IMAGE!" VerticalAlignment="Top" Width="80" />
-        <Image Source="C:\Users\m4800\PycharmProjects\pano\image1\bien_canh_bao.jpg" Stretch="Uniform" HorizontalAlignment="Center" Height="122" Margin="0,10,0,0" VerticalAlignment="Top" Width="146" />
+        <Image Source="pack://application:,,,/Resources/1.jpg" Stretch="Uniform" HorizontalAlignment="Center" Height="122" Margin="0,10,0,0" VerticalAlignment="Top" Width="146" />
 
     </Grid>
 </Window>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace panorama
+namespace Image_Stitcher
 {
     /// <summary>
     /// Interaction logic for App.xaml
