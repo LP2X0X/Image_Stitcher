@@ -90,9 +90,10 @@ namespace Image_Stitcher
                 var files = Directory.EnumerateFiles(txt_path.Text, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".png") || s.EndsWith(".jpg") || s.EndsWith(".tiff"));
                 string[] images = (from string c in files select c.ToString()).ToArray();
 
-                // If there is no images in chosen folder
+                
                 if (images.Length == 0)
                 {
+                    // If there is no image in chosen folder
                     DateTime d = new DateTime();
                     d = DateTime.Now;
                     Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": There is no images in the chosen folder.");
@@ -100,7 +101,12 @@ namespace Image_Stitcher
                 }
                 else
                 {
-                    
+                    // If there is image in chosen folder
+                    DateTime d = new DateTime();
+                    d = DateTime.Now;
+                    Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": Image loaded successfully.");
+                    Status_Box.AppendText(Environment.NewLine);
+
                     // Load the images to ListView
                     int j = 1;
                     foreach (string img in images)
