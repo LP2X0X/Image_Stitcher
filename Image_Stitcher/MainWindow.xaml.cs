@@ -27,15 +27,12 @@ namespace Image_Stitcher
         public MainWindow()
         {
 
-            string a = System.AppDomain.CurrentDomain.BaseDirectory;
-            Debug.WriteLine(a);
             InitializeComponent();
 
 
         }
 
         
-
         class input_image
         {
             public string ID { get; set;}
@@ -43,10 +40,41 @@ namespace Image_Stitcher
 
         }
 
+        private void run_cmd(string cmd, string args)
+        {
+            // Run python script get_image_type.py to return type of image
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = cmd;
+            start.Arguments = args;
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            using (Process process = Process.Start(start))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    string result = reader.ReadLine();
+                    Debug.WriteLine(result);
+                    if (result == "3")
+                    {
+                        // If image has 3 channel
+                        txt_info.AppendText("The images is in color format (RGB).");
+                        txt_info.AppendText(Environment.NewLine);
+                    }
+                    else
+                    {
+                        // If image has 1 channel
+                        txt_info.AppendText("The images is in gray scale format.");
+                        txt_info.AppendText(Environment.NewLine);
+                    }
+                }
+            }
+        }
+
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(txt_path.Text))
             {
+                // If there is no path in Path Textbox
                 DateTime d = new DateTime();
                 d = DateTime.Now;
                 Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": No path has been selected.");
@@ -54,44 +82,55 @@ namespace Image_Stitcher
             }
             else
             {
-                // Clear the ListView
+                // Clear the ListView and Info Textbox
                 list_image.Items.Clear();
+                txt_info.Text = "";
 
                 // Get only file paths with image extension
                 var files = Directory.EnumerateFiles(txt_path.Text, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".png") || s.EndsWith(".jpg") || s.EndsWith(".tiff"));
                 string[] images = (from string c in files select c.ToString()).ToArray();
 
-                // Load the images list to ListView
-                int j = 1;
-                foreach (string img in images)
+                // If there is no images in chosen folder
+                if (images.Length == 0)
                 {
-
-                    list_image.Items.Add(new input_image() { ID = j.ToString(), Path = img.ToString() });
-                    j++;
+                    DateTime d = new DateTime();
+                    d = DateTime.Now;
+                    Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": There is no images in the chosen folder.");
+                    Status_Box.AppendText(Environment.NewLine);
                 }
-
-                // Show number of images in info textbox
-                txt_info.Text = "Total_image: " + (j - 1).ToString();
-
-                if (j == 0)
+                else
                 {
-                    error msg = new error();
-                    msg.ShowDialog();
+                    
+                    // Load the images to ListView
+                    int j = 1;
+                    foreach (string img in images)
+                    {
+
+                        list_image.Items.Add(new input_image() { ID = j.ToString(), Path = img.ToString() });
+                        j++;
+                    }
+
+                    // Show number of images in Info Textbox
+                    txt_info.AppendText("Total images: " + (j - 1).ToString() + ".");
+                    txt_info.AppendText(Environment.NewLine);
+
+                    // Show type of image in Info Textbox
+                    string path = System.AppDomain.CurrentDomain.BaseDirectory + "get_image_type.py" + " \"{0}\"";
+                    run_cmd("C:\\Program Files\\Python39\\python.exe", string.Format(path, txt_path.Text));
+                    
+                    
                 }
             }
         }
 
         private void btn_open_Click(object sender, RoutedEventArgs e)
         {
+            // Open Explorer to choose folder
             var dialog = new FolderBrowserDialog();
             dialog.ShowDialog();
             txt_path.Text = dialog.SelectedPath;
 
         }
 
-        private void list_image_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
