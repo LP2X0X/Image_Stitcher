@@ -40,8 +40,10 @@ Once a homography is obtained from one image to the other image, opencv's warp p
 </p>
 
 ## Resources
+<p align="justify">
 [1] David Lowe, "Distinctive Image Features from Scale-Invariant Keypoints" - November, 2004 - International Journal of Computer Vision 60(2):91---110 - DOI: 10.1023/B:VISI.0000029664.99615.94 
 [2] Fischler, Martin A., and Robert C. Bolles, "Random sample consensus: a paradigm for model fitting with applications to image analysis and automated cartography." - Communications of the ACM 24.6 (1981): 381-395 - DOI:10.1145/358669.358692
+</p>
 
 ## References
 1. https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html
