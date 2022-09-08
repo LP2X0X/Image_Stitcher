@@ -10,7 +10,7 @@ The purpose of this application is to stitch multiple images vertically or horiz
 * [References](#references)
 
 ## General Info
-This UI for this application is created using C# with WPF Framework.</b>
+This UI for this application is created using C# with WPF Framework.</br>
 The algorithm behind it is implemented using Python.
 
 ## Technologies
