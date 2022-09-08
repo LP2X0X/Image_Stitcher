@@ -31,15 +31,12 @@ For keypoints and features detection, the **Scale-Invariant Feature Transform (S
 Once the <b>keypoints</b> and <b>features descriptors</b> are obtained from a pair of images, <i>brute-force-matching</i> is performed using <b>Euclidean distance</b> as the metric. For each point in one image, two points with <i>lowest</i> Euclidean distance in the other image is obtained using <b>KNN algorithm</b> (indicating the top two matches). The reason we want the top two matches rather than just the top one match is because we need to apply David Lowe’s ratio test for false-positive match pruning.
 </b>
 </b>
-
 With a list of matched points between two images, the <b>homography matrix</b> can be computed. However there can be oulier matches. In order to minimize the effect of outliers and to obtain the best homography matrix, RANSAC [2] algorithm is used.
 </b>
 </b>
-
 Once a homography is obtained from one image to the other image, opencv's warp perspective function is used to transform the second image into the perspective of the first. The resultant image might be warped edges because of the change in perspective. Also, if the images are not of the same size, then there would be empty pixels in the stitched image. Therefore, I have implemented a method to elegantly remove these empty pixels and retain the maximum image information between a pair of images.
 </b>
 </b>
-
 </p>
 
 ## Resources
