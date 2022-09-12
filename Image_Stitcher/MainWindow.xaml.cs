@@ -46,10 +46,13 @@ namespace Image_Stitcher
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = cmd;
             start.Arguments = args;
+            // Don't show cmd
             start.UseShellExecute = false;
+            start.CreateNoWindow = true;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))
             {
+                //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 using (StreamReader reader = process.StandardOutput)
                 {
                     string result = reader.ReadLine();
@@ -121,7 +124,7 @@ namespace Image_Stitcher
                     txt_info.AppendText(Environment.NewLine);
 
                     // Show type of image in Info Textbox
-                    string path = System.AppDomain.CurrentDomain.BaseDirectory + "get_image_type.py" + " \"{0}\"";
+                    string path = System.AppDomain.CurrentDomain.BaseDirectory + "get_image_type.py" + " \"{0}\" " + "&";
                     run_cmd("C:\\Program Files\\Python39\\python.exe", string.Format(path, txt_path.Text));
                     
                     
