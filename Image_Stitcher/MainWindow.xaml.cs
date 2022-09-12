@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Drawing;
+using System.Runtime.Intrinsics.X86;
 
 
 namespace Image_Stitcher
@@ -72,6 +74,54 @@ namespace Image_Stitcher
                 }
             }
         }
+        private string ValidFileName(string filename)
+        {
+            string msg = "";
+
+            if (list_image.Items.Count == 0)
+            {
+                // If no images have been loaded
+                msg = "[Error] You need to load a folder which contains images first.";
+            }
+            else if (list_image.Items.Count != 0) {
+                // Check if file name contain invalid character
+                List<string> Pattern = new List<string> { "^", "<", ">", ";", "|", "'", "/", ",", "\\", ":", "=", "?", "\"", "*" };
+                for (int i = 0; i < Pattern.Count; i++)
+                {
+                    if (filename.Contains(Pattern[i]))
+                    {
+                        msg = "[Error] File name can not contain invalid character " + "\"" + Pattern[i] + "\".";
+                        break;
+                    }
+                }
+
+                // Check if file name is invalid string
+                List<string> Parts = new List<string> { "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
+                for (int i = 0; i < Parts.Count; i++)
+                {
+                    if (filename == Parts[i])
+                    {
+                        msg = "[Error] File name can not be " + "\"" + Parts[i] + "\"."; ;
+                        break;
+                    }
+                }
+
+                // Check if file name is empty
+                if (filename == "")
+                {
+                    msg = "[Error] File name must not be blank.";
+                }
+
+                // If there is no error
+            
+                if (msg == "")
+                {
+                    msg = "[Error] File name is valid.";
+                }
+            }
+            return msg;
+        }
+
 
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
@@ -80,7 +130,7 @@ namespace Image_Stitcher
                 // If there is no path in Path Textbox
                 DateTime d = new DateTime();
                 d = DateTime.Now;
-                Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": No path has been selected.");
+                Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": [Error] No path has been selected.");
                 Status_Box.AppendText(Environment.NewLine);
             }
             else
@@ -99,9 +149,19 @@ namespace Image_Stitcher
                     // If there is no image in chosen folder
                     DateTime d = new DateTime();
                     d = DateTime.Now;
-                    Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": There is no images in the chosen folder.");
+                    Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": [Error] There is no images in the chosen folder.");
                     Status_Box.AppendText(Environment.NewLine);
                 }
+
+                else if (images.Length == 1)
+                {
+                    // If there is only one image in chosen folder
+                    DateTime d = new DateTime();
+                    d = DateTime.Now;
+                    Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]" + ": [Error] There is only one image in the chosen folder.");
+                    Status_Box.AppendText(Environment.NewLine);
+                }
+
                 else
                 {
                     // If there is image in chosen folder
@@ -141,5 +201,18 @@ namespace Image_Stitcher
 
         }
 
+        private void btn_select_Click(object sender, RoutedEventArgs e)
+        {
+            // Show update about output filename
+            DateTime d = new DateTime();
+            d = DateTime.Now;
+            Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + ValidFileName(txt_name.Text));
+            Status_Box.AppendText(Environment.NewLine);
+        }
+
+        private void Status_Box_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Status_Box.ScrollToEnd();
+        }
     }
 }

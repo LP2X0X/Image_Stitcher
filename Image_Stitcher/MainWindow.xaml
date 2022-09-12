@@ -21,9 +21,9 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <TextBox x:Name="txt_path" HorizontalAlignment="Left" Margin="53,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Height="44"/>
+            <TextBox x:Name="txt_path" HorizontalAlignment="Left" Margin="53,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Height="44" IsReadOnly="True"/>
             <Label Content="Path" HorizontalAlignment="Left" Margin="8,17,0,0" VerticalAlignment="Top" FontFamily="Input" Width="39" FontWeight= "Bold"/>
-            <TextBox x:Name="txt_info" HorizontalAlignment="Left" Margin="53,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Height="44"/>
+            <TextBox x:Name="txt_info" HorizontalAlignment="Left" Margin="53,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Height="44" IsReadOnly="True"/>
             <Label Content="Info" HorizontalAlignment="Left" Margin="8,76,0,0" VerticalAlignment="Top" FontFamily= "Input" FontWeight= "Bold"/>
             <ListView x:Name="list_image" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="53,135,0,0" MinWidth="280" MinHeight="584" Height="612" Width="270" MaxWidth="284" MaxHeight="625">
                 <ListView.View>
@@ -49,7 +49,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Rectangle HorizontalAlignment="Left" Height="103" Margin="431,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="946"/>
+            <Rectangle HorizontalAlignment="Left" Height="103" Margin="431,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="942"/>
             <Label Content="Output Filename" HorizontalAlignment="Left" Margin="444,24,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13
                "/>
             <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="1242,50,0,0" VerticalAlignment="Top" Height="36" Width="104" FontSize="19" FontWeight="Bold" FontFamily="Lato">
@@ -59,9 +59,17 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Label Content="Status" HorizontalAlignment="Left" Margin="371,697,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.24,0.383" FontFamily="Input" FontWeight="Bold" Width="56" FontSize="13"/>
+            <Label Content="Status" HorizontalAlignment="Left" Margin="370,697,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.24,0.383" FontFamily="Input" FontWeight="Bold" Width="56" FontSize="13"/>
 
-            <TextBox x:Name="Status_Box" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="431,697,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="946" Height="50"/>
+            <TextBox x:Name="Status_Box" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="431,697,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="942" Height="50" TextChanged="Status_Box_TextChanged"/>
+            <TextBox x:Name="txt_name" HorizontalAlignment="Left" Margin="576,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Height="26"/>
+            <Button x:Name="btn_select" Content="Select" HorizontalAlignment="Left" Margin="790,24,0,0" VerticalAlignment="Top" Height="26" Width="48" Click="btn_select_Click">
+                <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+                </Button.Resources>
+            </Button>
         </Grid>
     </Viewbox>
 </Window>
