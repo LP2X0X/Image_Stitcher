@@ -39,6 +39,12 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "DotNetProjects.WpfToolkit.DataVisualization": {
+              "target": "Package",
+              "version": "[6.1.94, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

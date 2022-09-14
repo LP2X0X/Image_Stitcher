@@ -4,16 +4,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Image_Stitcher"
+        xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit" 
         mc:Ignorable="d"
         Title="Image Stitcher" Height="768" Width="1366" MinWidth="1366" MinHeight="768" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" Icon="icon.ico">
     <Window.Style>
         <Style/>
     </Window.Style>
     <Viewbox Margin="-30,0,-30,0">
-        <Grid x:Name="main_grid" Background="#FFA5A5A5" MinWidth="1366" MinHeight="768" Width="1423">
+        <Grid x:Name="main_grid" MinWidth="1366" MinHeight="768" Width="1423" Background="#FFCCCCCC">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+
+            <dvc:Chart Margin="1098,178,28,287" Name="Histogram">
+                <dvc:Chart.Axes>
+                    <dvc:CategoryAxis Orientation="X">
+                        <dvc:CategoryAxis.AxisLabelStyle>
+                            <Style x:Name="labelStyleX1" TargetType="Control">
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="LayoutTransform" >
+                                    <Setter.Value>
+                                        <RotateTransform  Angle="-45" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </dvc:CategoryAxis.AxisLabelStyle>
+                    </dvc:CategoryAxis>
+                </dvc:Chart.Axes>
+                <dvc:Chart.Series>
+                    <dvc:ColumnSeries Title="Hello"
+                           IndependentValueBinding="{Binding Path=Key}"    
+                           DependentValueBinding="{Binding Path=Value}">
+                        <dvc:ColumnSeries.LegendItemStyle >
+                            <Style TargetType="dvc:LegendItem">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Style>
+                        </dvc:ColumnSeries.LegendItemStyle>
+                        <dvc:ColumnSeries.DependentRangeAxis>
+                            <dvc:LinearAxis Minimum="0" Maximum="50" Orientation="Y"/>
+                        </dvc:ColumnSeries.DependentRangeAxis>
+                    </dvc:ColumnSeries>
+                </dvc:Chart.Series>
+            </dvc:Chart>
+            
             <Button x:Name="btn_load" Content="Load" HorizontalAlignment="Left" Margin="290,76,0,0" VerticalAlignment="Top" Height="44" Width="43" Click="btn_load_Click" FontFamily="Family">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -25,7 +59,7 @@
             <Label Content="Path" HorizontalAlignment="Left" Margin="8,17,0,0" VerticalAlignment="Top" FontFamily="Input" Width="39" FontWeight= "Bold"/>
             <TextBox x:Name="txt_info" HorizontalAlignment="Left" Margin="53,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Height="44" IsReadOnly="True"/>
             <Label Content="Info" HorizontalAlignment="Left" Margin="8,76,0,0" VerticalAlignment="Top" FontFamily= "Input" FontWeight= "Bold"/>
-            <ListView x:Name="list_image" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="53,135,0,0" MinWidth="280" MinHeight="584" Height="612" Width="270" MaxWidth="284" MaxHeight="625">
+            <ListView x:Name="list_image" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="53,135,0,0" MinWidth="280" MinHeight="584" Height="631" Width="270" MaxWidth="284" MaxHeight="625">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header = "ID" Width = "30" DisplayMemberBinding="{Binding ID}"/>
@@ -49,27 +83,31 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Rectangle HorizontalAlignment="Left" Height="103" Margin="431,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="942"/>
-            <Label Content="Output Filename" HorizontalAlignment="Left" Margin="444,24,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13
+            <Rectangle HorizontalAlignment="Left" Height="103" Margin="399,17,0,0" Stroke="Gray" VerticalAlignment="Top" Width="996" Fill="#FFBABABA"/>
+            <Label Content="Output Filename" HorizontalAlignment="Left" Margin="412,24,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13
                "/>
-            <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="1242,50,0,0" VerticalAlignment="Top" Height="36" Width="104" FontSize="19" FontWeight="Bold" FontFamily="Lato">
+            <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="1219,50,0,0" VerticalAlignment="Top" Height="36" Width="104" FontSize="19" FontWeight="Bold" FontFamily="Lato" RenderTransformOrigin="0.494,0.048">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Label Content="Status" HorizontalAlignment="Left" Margin="370,697,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.24,0.383" FontFamily="Input" FontWeight="Bold" Width="56" FontSize="13"/>
+            <Label Content="Status" HorizontalAlignment="Left" Margin="338,722,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.24,0.383" FontFamily="Input" FontWeight="Bold" Width="56" FontSize="13"/>
 
-            <TextBox x:Name="Status_Box" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="431,697,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="942" Height="50" TextChanged="Status_Box_TextChanged"/>
-            <TextBox x:Name="txt_name" HorizontalAlignment="Left" Margin="576,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Height="26"/>
-            <Button x:Name="btn_select" Content="Select" HorizontalAlignment="Left" Margin="790,24,0,0" VerticalAlignment="Top" Height="26" Width="48" Click="btn_select_Click">
+            <TextBox x:Name="Status_Box" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="399,708,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="996" Height="50
+                     " TextChanged="Status_Box_TextChanged"/>
+            <TextBox x:Name="txt_name" HorizontalAlignment="Left" Margin="544,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Height="26"/>
+            <Button x:Name="btn_select" Content="Select" HorizontalAlignment="Left" Margin="758,24,0,0" VerticalAlignment="Top" Height="26" Width="48" Click="btn_select_Click">
                 <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
                 </Button.Resources>
             </Button>
+            <Rectangle HorizontalAlignment="Left" Height="103" Margin="399,589,0,0" Stroke="Gray" VerticalAlignment="Top" Width="293" Fill="#FFBABABA"/>
+            <Label Content="Wholeboard Histogram" HorizontalAlignment="Left" Margin="412,597,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13"/>
+
         </Grid>
     </Viewbox>
 </Window>

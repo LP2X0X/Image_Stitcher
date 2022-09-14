@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "9tn3LSn55cGTz8uZC119XLTuAT7x2XyqdJq+XhHKqu+OPN2S2JgcJHzDbxjkBUYlnnx4EtbfyBCqQBmodD7NsA==",
+  "dgSpecHash": "iNNzY7S3HcZIFSrwm/2vEDjMG3FrMaLKPTKPB2+9+4Its7fO4VLKm2SoslPHas7A1GFI4MMUe9O/R2NdibkklA==",
   "success": true,
   "projectFilePath": "D:\\Placeholder\\Image-Stitcher\\Image_Stitcher\\Image_Stitcher.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\LP2X0X\\.nuget\\packages\\dotnetprojects.wpftoolkit.datavisualization\\6.1.94\\dotnetprojects.wpftoolkit.datavisualization.6.1.94.nupkg.sha512"
+  ],
   "logs": []
 }

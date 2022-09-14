@@ -17,10 +17,12 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.Intrinsics.X86;
-
+using System.Collections.Generic;
+using System.Windows.Controls.DataVisualization.Charting;
 
 namespace Image_Stitcher
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -30,11 +32,11 @@ namespace Image_Stitcher
         {
 
             InitializeComponent();
+            LoadHistogramData();
 
 
         }
 
-        
         class input_image
         {
             public string ID { get; set;}
@@ -122,6 +124,17 @@ namespace Image_Stitcher
             return msg;
         }
 
+        private void LoadHistogramData()
+        {
+            ((ColumnSeries)Histogram.Series[0]).ItemsSource =
+                new KeyValuePair<string, int>[]{
+                new KeyValuePair<string,int>("Project Manager", 12),
+                new KeyValuePair<string,int>("CEO", 25),
+                new KeyValuePair<string,int>("Software Engg.", 5),
+                new KeyValuePair<string,int>("Team Leader", 6),
+                new KeyValuePair<string,int>("Project Leader", 10),
+                new KeyValuePair<string,int>("Developer", 4) };
+        }
 
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
@@ -214,5 +227,8 @@ namespace Image_Stitcher
         {
             Status_Box.ScrollToEnd();
         }
+
+        
     }
+    
 }

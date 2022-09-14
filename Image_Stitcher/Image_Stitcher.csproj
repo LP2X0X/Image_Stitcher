@@ -27,6 +27,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetProjects.WpfToolkit.DataVisualization" Version="6.1.94" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Emgu.CV.Platform.NetFramework">
+      <HintPath>C:\Users\LP2X0X\.nuget\packages\emgu.cv.ui\4.5.5.4823\lib\net461\Emgu.CV.Platform.NetFramework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
 
