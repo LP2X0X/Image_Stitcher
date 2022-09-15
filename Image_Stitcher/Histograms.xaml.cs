@@ -27,9 +27,12 @@ namespace Image_Stitcher
             InitializeComponent();
             if (File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "histogram\\grayscale_histogram.png"))
             {
+                // Load image
                 BitmapImage image = new BitmapImage();
                 image.BeginInit();
+                // Add this for "another process" error
                 image.CacheOption = BitmapCacheOption.OnLoad;
+                // Add this to fix image won't change after first load
                 image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 image.UriSource = new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "histogram\\grayscale_histogram.png", UriKind.Relative);
                 image.EndInit();

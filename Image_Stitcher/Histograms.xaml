@@ -10,7 +10,7 @@
         Title="Histograms" Height="768" Width="1366" MinWidth="1366" MinHeight="768" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" Icon="icon.ico">
 
     <Grid Background="#FFCCCCCC">
-        <Image Stretch="Fill" Name="grayscale_hist" HorizontalAlignment="Left" Margin="67,64,0,0" VerticalAlignment="Top" Width="400" Height="300">
+        <Image Stretch="Fill" Name="grayscale_hist" HorizontalAlignment="Left" Margin="287,56,0,0" VerticalAlignment="Top" Width="832" Height="624">
         </Image>
 
     </Grid>
