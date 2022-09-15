@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Placeholder\Image-Stitcher\Image_Stitcher\obj\Debug\net6.0-windows\
+D:\Placeholder\Image_Stitcher\Image_Stitcher\obj\Debug\net6.0-windows\
 Image_Stitcher
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-D:\Placeholder\Image-Stitcher\Image_Stitcher\App.xaml
-11407045341
+D:\Placeholder\Image_Stitcher\Image_Stitcher\App.xaml
+22096651621
 
-3-1233169557
+4-35610592
 205-1663749612
-MainWindow.xaml;
+Histograms.xaml;MainWindow.xaml;
 
 False
 

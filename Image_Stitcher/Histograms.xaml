@@ -1,0 +1,18 @@
+﻿<Window x:Class="Image_Stitcher.Histograms"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit" 
+        xmlns:local="clr-namespace:Image_Stitcher"
+        mc:Ignorable="d"
+        Closing="Histogram_Closing"
+        Title="Histograms" Height="768" Width="1366" MinWidth="1366" MinHeight="768" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" Icon="icon.ico">
+
+    <Grid Background="#FFCCCCCC">
+        <Image Stretch="Fill" Name="grayscale_hist" HorizontalAlignment="Left" Margin="67,64,0,0" VerticalAlignment="Top" Width="400" Height="300">
+        </Image>
+
+    </Grid>
+
+</Window>

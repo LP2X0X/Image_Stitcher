@@ -19,6 +19,7 @@ using System.Drawing;
 using System.Runtime.Intrinsics.X86;
 using System.Collections.Generic;
 using System.Windows.Controls.DataVisualization.Charting;
+using System.ComponentModel;
 
 namespace Image_Stitcher
 {
@@ -32,8 +33,10 @@ namespace Image_Stitcher
         {
 
             InitializeComponent();
-            LoadHistogramData();
 
+        }
+        void Window_Closing(object sender, CancelEventArgs e)
+        {
 
         }
 
@@ -60,7 +63,6 @@ namespace Image_Stitcher
                 using (StreamReader reader = process.StandardOutput)
                 {
                     string result = reader.ReadLine();
-                    Debug.WriteLine(result);
                     if (result == "3")
                     {
                         // If image has 3 channel
@@ -76,6 +78,27 @@ namespace Image_Stitcher
                 }
             }
         }
+
+        private void cmd_histogram(string cmd, string args)
+        {
+            // Run python script histogram.py to return chart image
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = cmd;
+            start.Arguments = args;
+            // Don't show cmd
+            start.UseShellExecute = false;
+            start.CreateNoWindow = true;
+            start.RedirectStandardOutput = true;
+            using (Process process = Process.Start(start))
+            {
+                //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                using (StreamReader reader = process.StandardOutput)
+                {
+
+                }
+            }
+        }
+
         private string ValidFileName(string filename)
         {
             string msg = "";
@@ -124,17 +147,6 @@ namespace Image_Stitcher
             return msg;
         }
 
-        private void LoadHistogramData()
-        {
-            ((ColumnSeries)Histogram.Series[0]).ItemsSource =
-                new KeyValuePair<string, int>[]{
-                new KeyValuePair<string,int>("Project Manager", 12),
-                new KeyValuePair<string,int>("CEO", 25),
-                new KeyValuePair<string,int>("Software Engg.", 5),
-                new KeyValuePair<string,int>("Team Leader", 6),
-                new KeyValuePair<string,int>("Project Leader", 10),
-                new KeyValuePair<string,int>("Developer", 4) };
-        }
 
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
@@ -153,7 +165,7 @@ namespace Image_Stitcher
                 txt_info.Text = "";
 
                 // Get only file paths with image extension
-                var files = Directory.EnumerateFiles(txt_path.Text, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".png") || s.EndsWith(".jpg") || s.EndsWith(".tiff"));
+                var files = Directory.EnumerateFiles(txt_path.Text, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".png") || s.EndsWith(".jpg") || s.EndsWith(".tiff") || s.EndsWith(".jpeg"));
                 string[] images = (from string c in files select c.ToString()).ToArray();
 
                 
@@ -228,7 +240,53 @@ namespace Image_Stitcher
             Status_Box.ScrollToEnd();
         }
 
-        
+        private void btn_histogram_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "histogram\\grayscale_histogram.png"))
+            {
+                // Show histograms window
+                Histograms histograms = new Histograms();
+                histograms.Show();
+            }
+            else
+            {
+                // Show error, the histogram is not created
+                DateTime d = new DateTime();
+                d = DateTime.Now;
+                Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + " Please wait for the histograms to be created or reselect the image.");
+                Status_Box.AppendText(Environment.NewLine);
+            }
+            
+        }
+
+        private void btn_choose_Click(object sender, RoutedEventArgs e)
+        {
+
+            // Open Explorer to choose image
+            var dialog = new OpenFileDialog();
+            dialog.DefaultExt = ".jpg";
+            dialog.Filter = "JPG Files (*.jpg)|*.jpg|*.jpeg|PNG Files (*.png)|*.png|JPEG Files (*.jpeg)|TIFF Files (*.tiff)|*.tiff";
+            dialog.ShowDialog();
+            txt_path_histogram.Text = dialog.FileName;
+            
+            // Get histogram image
+            string path = System.AppDomain.CurrentDomain.BaseDirectory + "histogram\\" + "histogram.py" + " \"{0}\" ";
+            cmd_histogram("C:\\Program Files\\Python39\\python.exe", string.Format(path, txt_path_histogram.Text));
+
+            // Show update about histogram
+            DateTime d = new DateTime();
+            d = DateTime.Now;
+            while (true)
+            {
+                if (File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "histogram\\grayscale_histogram.png"))
+                {
+                    Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + " Histograms created successfully.");
+                    Status_Box.AppendText(Environment.NewLine);
+                    break;
+                }
+            }
+            
+        }
     }
     
 }

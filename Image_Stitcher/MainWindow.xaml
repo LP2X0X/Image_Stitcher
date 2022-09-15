@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Image_Stitcher"
-        xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit" 
         mc:Ignorable="d"
+        Closing="Window_Closing"  
         Title="Image Stitcher" Height="768" Width="1366" MinWidth="1366" MinHeight="768" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" Icon="icon.ico">
     <Window.Style>
         <Style/>
@@ -15,39 +15,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-
-            <dvc:Chart Margin="1098,178,28,287" Name="Histogram">
-                <dvc:Chart.Axes>
-                    <dvc:CategoryAxis Orientation="X">
-                        <dvc:CategoryAxis.AxisLabelStyle>
-                            <Style x:Name="labelStyleX1" TargetType="Control">
-                                <Setter Property="FontSize" Value="15"/>
-                                <Setter Property="LayoutTransform" >
-                                    <Setter.Value>
-                                        <RotateTransform  Angle="-45" />
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="Foreground" Value="Black"/>
-                            </Style>
-                        </dvc:CategoryAxis.AxisLabelStyle>
-                    </dvc:CategoryAxis>
-                </dvc:Chart.Axes>
-                <dvc:Chart.Series>
-                    <dvc:ColumnSeries Title="Hello"
-                           IndependentValueBinding="{Binding Path=Key}"    
-                           DependentValueBinding="{Binding Path=Value}">
-                        <dvc:ColumnSeries.LegendItemStyle >
-                            <Style TargetType="dvc:LegendItem">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </Style>
-                        </dvc:ColumnSeries.LegendItemStyle>
-                        <dvc:ColumnSeries.DependentRangeAxis>
-                            <dvc:LinearAxis Minimum="0" Maximum="50" Orientation="Y"/>
-                        </dvc:ColumnSeries.DependentRangeAxis>
-                    </dvc:ColumnSeries>
-                </dvc:Chart.Series>
-            </dvc:Chart>
-            
             <Button x:Name="btn_load" Content="Load" HorizontalAlignment="Left" Margin="290,76,0,0" VerticalAlignment="Top" Height="44" Width="43" Click="btn_load_Click" FontFamily="Family">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -105,8 +72,22 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Rectangle HorizontalAlignment="Left" Height="103" Margin="399,589,0,0" Stroke="Gray" VerticalAlignment="Top" Width="293" Fill="#FFBABABA"/>
-            <Label Content="Wholeboard Histogram" HorizontalAlignment="Left" Margin="412,597,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13"/>
+            <Label Content="Histogram" HorizontalAlignment="Left" Margin="412,63,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13"/>
+            <Button x:Name="btn_histogram" Content="Show" HorizontalAlignment="Left" Margin="849,63,0,0" VerticalAlignment="Top" Click="btn_histogram_Click" Height="26" Width="48" RenderTransformOrigin="0.546,1.05">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="btn_choose" Content="Choose Image" HorizontalAlignment="Left" Margin="758,63,0,0" VerticalAlignment="Top" Height="26" Width="86" Click="btn_choose_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <TextBox x:Name="txt_path_histogram" HorizontalAlignment="Left" Margin="497,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="26" IsReadOnly="True"/>
 
         </Grid>
     </Viewbox>

@@ -43,11 +43,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Placeholder\\Image-Stitcher\\Image_Stitcher\\Image_Stitcher.csproj",
+      "projectUniqueName": "D:\\Placeholder\\Image_Stitcher\\Image_Stitcher\\Image_Stitcher.csproj",
       "projectName": "Image_Stitcher",
-      "projectPath": "D:\\Placeholder\\Image-Stitcher\\Image_Stitcher\\Image_Stitcher.csproj",
+      "projectPath": "D:\\Placeholder\\Image_Stitcher\\Image_Stitcher\\Image_Stitcher.csproj",
       "packagesPath": "C:\\Users\\LP2X0X\\.nuget\\packages\\",
-      "outputPath": "D:\\Placeholder\\Image-Stitcher\\Image_Stitcher\\obj\\",
+      "outputPath": "D:\\Placeholder\\Image_Stitcher\\Image_Stitcher\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\LP2X0X\\AppData\\Roaming\\NuGet\\NuGet.Config",
