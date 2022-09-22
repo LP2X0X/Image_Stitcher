@@ -21,6 +21,8 @@ using System.Collections.Generic;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.ComponentModel;
 
+
+
 namespace Image_Stitcher
 {
 
@@ -29,6 +31,11 @@ namespace Image_Stitcher
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Public variables
+        public string data;
+        public int min_h;
+        public int max_h;
+
         public MainWindow()
         {
 
@@ -53,9 +60,11 @@ namespace Image_Stitcher
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = cmd;
             start.Arguments = args;
+
             // Don't show cmd
             start.UseShellExecute = false;
             start.CreateNoWindow = true;
+
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))
             {
@@ -79,7 +88,7 @@ namespace Image_Stitcher
             }
         }
 
-        private void cmd_histogram(string cmd, string args)
+        private string cmd_histogram(string cmd, string args)
         {
             // Run python script histogram.py to return chart image
             ProcessStartInfo start = new ProcessStartInfo();
@@ -94,7 +103,8 @@ namespace Image_Stitcher
                 //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 using (StreamReader reader = process.StandardOutput)
                 {
-
+                    string result = reader.ReadLine();
+                    return result;
                 }
             }
         }
@@ -209,10 +219,10 @@ namespace Image_Stitcher
                     txt_info.AppendText(Environment.NewLine);
 
                     // Show type of image in Info Textbox
-                    string path = System.AppDomain.CurrentDomain.BaseDirectory + "get_image_type.py" + " \"{0}\" " + "&";
+                    string path = System.AppDomain.CurrentDomain.BaseDirectory + "\\get_image_type.py" + " \"{0}\" ";
                     run_cmd("C:\\Program Files\\Python39\\python.exe", string.Format(path, txt_path.Text));
-                    
-                    
+
+
                 }
             }
         }
@@ -242,7 +252,11 @@ namespace Image_Stitcher
 
         private void btn_histogram_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "histogram\\grayscale_histogram.png"))
+            // Get min, max data by user
+            min_h = Convert.ToInt32(select_min.Value);
+            max_h = Convert.ToInt32(select_max.Value);
+
+            if (txt_path_histogram.Text != "")
             {
                 // Show histograms window
                 Histograms histograms = new Histograms();
@@ -250,10 +264,10 @@ namespace Image_Stitcher
             }
             else
             {
-                // Show error, the histogram is not created
+                // Can not leave image path blank
                 DateTime d = new DateTime();
                 d = DateTime.Now;
-                Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + " Please wait for the histograms to be created or reselect the image.");
+                Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + "[Error] Please select an image in order to calculate histogram.");
                 Status_Box.AppendText(Environment.NewLine);
             }
             
@@ -268,24 +282,39 @@ namespace Image_Stitcher
             dialog.Filter = "JPG Files (*.jpg)|*.jpg|*.jpeg|PNG Files (*.png)|*.png|JPEG Files (*.jpeg)|TIFF Files (*.tiff)|*.tiff";
             dialog.ShowDialog();
             txt_path_histogram.Text = dialog.FileName;
-            
-            // Get histogram image
-            string path = System.AppDomain.CurrentDomain.BaseDirectory + "histogram\\" + "histogram.py" + " \"{0}\" ";
-            cmd_histogram("C:\\Program Files\\Python39\\python.exe", string.Format(path, txt_path_histogram.Text));
 
-            // Show update about histogram
-            DateTime d = new DateTime();
-            d = DateTime.Now;
-            while (true)
+            if (txt_path_histogram.Text == "")
             {
-                if (File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "histogram\\grayscale_histogram.png"))
+                // Can not leave image path blank
+                DateTime d = new DateTime();
+                d = DateTime.Now;
+                Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + "[Error] Please select an image in order to calculate histogram.");
+                Status_Box.AppendText(Environment.NewLine);
+            }
+
+            else
+            {
+                // Get histogram data and pass to 'data' variable
+                string path = System.AppDomain.CurrentDomain.BaseDirectory + "histogram\\" + "histogram.py" + " \"{0}\" ";
+                data = cmd_histogram("C:\\Program Files\\Python39\\python.exe", string.Format(path, txt_path_histogram.Text));
+                data = data.Substring(1, data.Length - 2);
+
+                while (true)
                 {
-                    Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + " Histograms created successfully.");
-                    Status_Box.AppendText(Environment.NewLine);
-                    break;
+                    if (data != "")
+                    {
+                        // Show update about histogram
+                        DateTime d = new DateTime();
+                        d = DateTime.Now;
+                        Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + "Histograms data created successfully.");
+                        Status_Box.AppendText(Environment.NewLine);
+                        break;
+                    }
                 }
             }
+
             
+
         }
     }
     

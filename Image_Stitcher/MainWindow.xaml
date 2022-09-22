@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Image_Stitcher"
+        xmlns:PAZ="clr-namespace:PanAndZoom"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Closing="Window_Closing"  
         Title="Image Stitcher" Height="768" Width="1366" MinWidth="1366" MinHeight="768" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" Icon="icon.ico">
@@ -53,7 +55,7 @@
             <Rectangle HorizontalAlignment="Left" Height="103" Margin="399,17,0,0" Stroke="Gray" VerticalAlignment="Top" Width="996" Fill="#FFBABABA"/>
             <Label Content="Output Filename" HorizontalAlignment="Left" Margin="412,24,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13
                "/>
-            <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="1219,50,0,0" VerticalAlignment="Top" Height="36" Width="104" FontSize="19" FontWeight="Bold" FontFamily="Lato" RenderTransformOrigin="0.494,0.048">
+            <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="1068,64,0,0" VerticalAlignment="Top" Height="36" Width="104" FontSize="19" FontWeight="Bold" FontFamily="Lato" RenderTransformOrigin="0.494,0.048">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -72,23 +74,40 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Label Content="Histogram" HorizontalAlignment="Left" Margin="412,63,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13"/>
-            <Button x:Name="btn_histogram" Content="Show" HorizontalAlignment="Left" Margin="849,63,0,0" VerticalAlignment="Top" Click="btn_histogram_Click" Height="26" Width="48" RenderTransformOrigin="0.546,1.05">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <Button x:Name="btn_choose" Content="Choose Image" HorizontalAlignment="Left" Margin="758,63,0,0" VerticalAlignment="Top" Height="26" Width="86" Click="btn_choose_Click">
+            <Rectangle Margin="399,600,0,0" HorizontalAlignment="Left" Height="103" Width="996" Stroke="Gray" VerticalAlignment="Top" Fill="#FFBABABA"/>
+            <Label Content="Wholeboard Histogram" HorizontalAlignment="Left" Margin="412,600,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="17" Width="226"/>
+            <TextBox x:Name="txt_path_histogram" HorizontalAlignment="Left" Margin="412,639,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="50" IsReadOnly="True"/>
+            <Button x:Name="btn_choose" Content="Choose Image" HorizontalAlignment="Left" Margin="673,639,0,0" VerticalAlignment="Top" Height="26" Width="86" Click="btn_choose_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <TextBox x:Name="txt_path_histogram" HorizontalAlignment="Left" Margin="497,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="26" IsReadOnly="True"/>
-
+            <Button x:Name="btn_histogram" Content="Show" HorizontalAlignment="Left" Margin="1219,633,0,0" VerticalAlignment="Top" Click="btn_histogram_Click" Height="36" Width="104" FontSize="19" FontWeight="Bold" FontFamily="Lato" RenderTransformOrigin="0.546,1.05">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <xctk:IntegerUpDown Height="25" Width="70" MouseWheelActiveTrigger="MouseOver"  Name="select_min" AllowSpin="True" AllowTextInput="False" Margin="839,650,512,96" Value="0" Increment="1" Maximum="254" Minimum="0"/>
+            <Label Content="Min" FontSize="14" Margin="804,649,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" FontFamily= "Input" FontWeight= "Bold"/>
+            <xctk:IntegerUpDown Height="25" Width="70" MouseWheelActiveTrigger="MouseOver" Name="select_max" AllowSpin="True" AllowTextInput="False" Margin="1016,651,337,95" Value="255" Maximum="255" Minimum="0"/>
+            <Label Content="Max" FontSize="14" Margin="981,649,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" FontFamily= "Input" FontWeight= "Bold"/>
+            <!--
+            <ScrollViewer Margin="399,135,28,178" Height="458" Width="996"  HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                <Image Name="main_image" Height="458" Margin="0,0,0,0" Width="996" Stretch="Fill">
+                    <Image.RenderTransform>
+                        <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding Path=Text, ElementName=txt_num}" ScaleY="{Binding Path=Text, ElementName=txt_num}"/>
+                    </Image.RenderTransform>
+                </Image>
+            </ScrollViewer>-->
+            <PAZ:ZoomBorder x:Name="border" Margin="399,135,28,178" ClipToBounds="True" Background="Gray">
+                <Image Name="main_image" Height="458" Margin="0,0,0,0" Width="996" Source="C:\Users\LP2X0X\Pictures\Saved Pictures\1655659558197.jpg"/>
+            </PAZ:ZoomBorder>
+            <Label Content="Board Scale (20~100)" HorizontalAlignment="Left" Margin="412,56,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13" RenderTransformOrigin="0.244,2.086"/>
+            <Label Content="* If there is no barcode, it is replaced by Date Time." HorizontalAlignment="Left" Margin="925,26,0,0" VerticalAlignment="Top" Width="385" FontSize="16" FontStyle="Italic"/>
         </Grid>
     </Viewbox>
 </Window>
