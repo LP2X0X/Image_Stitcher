@@ -99,7 +99,7 @@ namespace PanAndZoom
                 tt.Y = absoluteY - relative.Y * st.ScaleY;
             }
         }
-
+        
         private void child_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (child != null)

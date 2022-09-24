@@ -90,18 +90,26 @@ namespace Image_Stitcher
             }
         }
 
-
+        public string date_time;
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
         public Func<double, string> Formatter { get; set; }
+
 
         public MainWindow()
         {
 
             InitializeComponent();
+            combobox_name.Items.Add("Barcode");
             SeriesCollection = new SeriesCollection();
+            DateTime d = new DateTime();
+            d = DateTime.Now;
+            date_time = d.ToString("dd-MM-yyyy") + "_" + d.ToString("HH-mm-ss");
+            combobox_name.Items.Add(date_time);
 
         }
+
+
         void Window_Closing(object sender, CancelEventArgs e)
         {
 
@@ -173,47 +181,41 @@ namespace Image_Stitcher
         {
             string msg = "";
 
-            if (list_image.Items.Count == 0)
+            // Check if file name contain invalid character
+            List<string> Pattern = new List<string> { "^", "<", ">", ";", "|", "'", "/", ",", "\\", ":", "=", "?", "\"", "*" };
+            for (int i = 0; i < Pattern.Count; i++)
             {
-                // If no images have been loaded
-                msg = "[Error] You need to load a folder which contains images first.";
+                if (filename.Contains(Pattern[i]))
+                {
+                    msg = "[Error] File name can not contain invalid character " + "\"" + Pattern[i] + "\".";
+                    break;
+                }
             }
-            else if (list_image.Items.Count != 0) {
-                // Check if file name contain invalid character
-                List<string> Pattern = new List<string> { "^", "<", ">", ";", "|", "'", "/", ",", "\\", ":", "=", "?", "\"", "*" };
-                for (int i = 0; i < Pattern.Count; i++)
-                {
-                    if (filename.Contains(Pattern[i]))
-                    {
-                        msg = "[Error] File name can not contain invalid character " + "\"" + Pattern[i] + "\".";
-                        break;
-                    }
-                }
 
-                // Check if file name is invalid string
-                List<string> Parts = new List<string> { "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
-                for (int i = 0; i < Parts.Count; i++)
+            // Check if file name is invalid string
+            List<string> Parts = new List<string> { "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
+            for (int i = 0; i < Parts.Count; i++)
+            {
+                if (filename == Parts[i])
                 {
-                    if (filename == Parts[i])
-                    {
-                        msg = "[Error] File name can not be " + "\"" + Parts[i] + "\"."; ;
-                        break;
-                    }
+                    msg = "[Error] File name can not be " + "\"" + Parts[i] + "\"."; ;
+                    break;
                 }
+            }
 
-                // Check if file name is empty
-                if (filename == "")
-                {
-                    msg = "[Error] File name must not be blank.";
-                }
+            // Check if file name is empty
+            if (filename == "")
+            {
+                msg = "[Error] File name must not be blank.";
+            }
 
-                // If there is no error
+            // If there is no error
             
-                if (msg == "")
-                {
-                    msg = "[Error] File name is valid.";
-                }
+            if (msg == "")
+            {
+                msg = "File name is valid.";
             }
+            
             return msg;
         }
 
@@ -296,12 +298,12 @@ namespace Image_Stitcher
 
         }
 
-        private void btn_select_Click(object sender, RoutedEventArgs e)
+        private void btn_check_Click(object sender, RoutedEventArgs e)
         {
             // Show update about output filename
             DateTime d = new DateTime();
             d = DateTime.Now;
-            Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + ValidFileName(txt_name.Text));
+            Status_Box.AppendText("[" + d.ToString("dd/MM/yyyy") + " - " + d.ToString("HH:mm:ss") + "]: " + ValidFileName(combobox_name.Text));
             Status_Box.AppendText(Environment.NewLine);
         }
 
@@ -408,9 +410,16 @@ namespace Image_Stitcher
                     }
                 }
             }
+        }
 
-            
+        private void select_zoom_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            TransformGroup transformGroup = (TransformGroup)main_image.RenderTransform;
+            ScaleTransform transform = (ScaleTransform)transformGroup.Children[0];
 
+            int zoom = Convert.ToInt32(select_zoom.Value);
+            transform.ScaleX = zoom;
+            transform.ScaleY = zoom;
         }
     }
     

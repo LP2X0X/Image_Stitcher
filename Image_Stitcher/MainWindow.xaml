@@ -14,7 +14,7 @@
     <Window.Style>
         <Style/>
     </Window.Style>
-    <Viewbox Margin="-30,0,-30,0">
+    <Viewbox Margin="0,-17,0,-30">
         <Grid x:Name="main_grid" MinWidth="1366" MinHeight="768" Width="1423" Background="#FFCCCCCC">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -55,9 +55,9 @@
                 </Button.Resources>
             </Button>
             <Rectangle HorizontalAlignment="Left" Height="103" Margin="350,17,0,0" Stroke="Gray" VerticalAlignment="Top" Width="1043" Fill="#FFBABABA"/>
-            <Label Content="Output Filename" HorizontalAlignment="Left" Margin="412,24,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13
+            <Label Content="Output Filename" HorizontalAlignment="Left" Margin="356,24,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13
                "/>
-            <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="1068,64,0,0" VerticalAlignment="Top" Height="36" Width="104" FontSize="19" FontWeight="Bold" FontFamily="Lato" RenderTransformOrigin="0.494,0.048">
+            <Button x:Name="btn_execute" Content="Execute" HorizontalAlignment="Left" Margin="1065,64,0,0" VerticalAlignment="Top" Height="36" Width="104" FontSize="19" FontWeight="Bold" FontFamily="Lato" RenderTransformOrigin="0.494,0.048">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -68,8 +68,7 @@
 
             <TextBox x:Name="Status_Box" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="53,708,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Height="50
                      " TextChanged="Status_Box_TextChanged"/>
-            <TextBox x:Name="txt_name" HorizontalAlignment="Left" Margin="544,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Height="26"/>
-            <Button x:Name="btn_select" Content="Select" HorizontalAlignment="Left" Margin="758,24,0,0" VerticalAlignment="Top" Height="26" Width="48" Click="btn_select_Click">
+            <Button x:Name="btn_check" Content="Check" HorizontalAlignment="Left" Margin="702,24,0,0" VerticalAlignment="Top" Height="26" Width="48" Click="btn_check_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -106,9 +105,9 @@
                 </Image>
             </ScrollViewer>-->
             <PAZ:ZoomBorder x:Name="border" Margin="350,135,28,178" ClipToBounds="True" Background="Gray">
-                <Image Name="main_image" Height="458" Margin="0,0,0,0" Width="996" Source="C:\Users\LP2X0X\Pictures\Saved Pictures\1636493971997.jpg"/>
+                <Image Name="main_image" Height="458" Margin="0,0,0,0" Width="996" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="C:\Users\LP2X0X\Pictures\Saved Pictures\1636493971997.jpg"/>
             </PAZ:ZoomBorder>
-            <Label Content="Board Scale (20~100)" HorizontalAlignment="Left" Margin="412,56,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13" RenderTransformOrigin="0.244,2.086"/>
+            <Label Content="Board Scale (1~100)" HorizontalAlignment="Left" Margin="356,56,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13" RenderTransformOrigin="0.244,2.086"/>
             <Label Content="* If there is no barcode, it is replaced by Date Time." HorizontalAlignment="Left" Margin="925,26,0,0" VerticalAlignment="Top" Width="385" FontSize="16" FontStyle="Italic"/>
             <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="None" Zoom="Xy" Pan="Xy" Margin="727,598,28,13">
                 <lvc:CartesianChart.AxisX>
@@ -118,6 +117,10 @@
                     <lvc:Axis Title="Pixel Count" LabelFormatter="{Binding Formatter}" Foreground="BlueViolet" FontSize="13" MinValue="0" MaxValue="{Binding MaxAxisValue}"></lvc:Axis>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
+            <xctk:IntegerUpDown Height="25" Width="70" MouseWheelActiveTrigger="MouseOver"  Name="select_zoom" AllowSpin="True" AllowTextInput="False" Margin="516,57,837,689" Value="1" Maximum="100" Minimum="1" ValueChanged="select_zoom_ValueChanged"/>
+            <ComboBox Name="combobox_name" HorizontalAlignment="Left" Margin="488,24,0,0" VerticalAlignment="Top" Width="209" SelectedIndex="0" Height="26" IsEditable="True">
+
+            </ComboBox>
         </Grid>
     </Viewbox>
 </Window>
