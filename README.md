@@ -16,12 +16,15 @@ The algorithm behind it is implemented using Python.
 ## Technologies
 ### User Interface
 * Microsoft Visual Studio 2022 Community Edition (ver 17.3.3) using WPF Framwork with .NET 6.0 desktop development.
-
+* LiveCharts.Wpf (Nuget Package) by Beto Rodriguez.
+* Extended.Wpf.Toolkit (Nuget Package) by Xceed.
 ### Algorithm
 * Python 3.x (preferred 3.9.6)
 * OpenCV Library 4.x (preferred 4.5.5)
 * Numpy Library 1.x (preferred 1.19.5)
 * Imutils Module 0.x (preferred 0.5.4)
+* Matplotlib Library 3.x (preferred 3.4.2)
+* Skimage Library 0.x (preferred 0.19.3)
 
 ## Algorithm Implementation
 For keypoints and features detection, the **Scale-Invariant Feature Transform (SIFT)** [1] algorithm is used from the **opencv** package.
