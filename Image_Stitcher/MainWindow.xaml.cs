@@ -90,6 +90,22 @@ namespace Image_Stitcher
             }
         }
 
+        // Variable to change image quality
+        public int Image_Quality;
+
+        public int image_quality
+        {
+            get
+            {
+                return Image_Quality;
+            }
+            set
+            {
+                Image_Quality = value;
+                OnPropertyChanged("image_quality");
+            }
+        }
+
         public string date_time;
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
@@ -420,6 +436,30 @@ namespace Image_Stitcher
             int zoom = Convert.ToInt32(select_zoom.Value);
             transform.ScaleX = zoom;
             transform.ScaleY = zoom;
+        }
+
+        private void select_quality_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (Convert.ToInt32(select_quality.Value) == 90)
+            {
+                image_quality = 5;
+            }
+            else if (Convert.ToInt32(select_quality.Value) == 80)
+            {
+                image_quality = 10;
+            }
+            else if (Convert.ToInt32(select_quality.Value) == 70)
+            {
+                image_quality = 15;
+            }
+            else if (Convert.ToInt32(select_quality.Value) == 60)
+            {
+                image_quality = 20;
+            }
+            else if (Convert.ToInt32(select_quality.Value) == 100)
+            {
+                image_quality = 0;
+            }
         }
     }
     

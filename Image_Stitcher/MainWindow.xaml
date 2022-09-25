@@ -105,7 +105,11 @@
                 </Image>
             </ScrollViewer>-->
             <PAZ:ZoomBorder x:Name="border" Margin="350,135,28,178" ClipToBounds="True" Background="Gray">
-                <Image Name="main_image" Height="458" Margin="0,0,0,0" Width="996" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="C:\Users\LP2X0X\Pictures\Saved Pictures\1636493971997.jpg"/>
+                <Image Name="main_image" Height="458" Margin="0,0,0,0" Width="996" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="C:\Users\LP2X0X\Pictures\Saved Pictures\1636493971997.jpg">
+                    <Image.BitmapEffect>
+                        <BlurBitmapEffect KernelType="Gaussian" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"  Radius="{Binding image_quality}"/>
+                    </Image.BitmapEffect>
+                </Image>
             </PAZ:ZoomBorder>
             <Label Content="Board Scale (1~100)" HorizontalAlignment="Left" Margin="356,56,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13" RenderTransformOrigin="0.244,2.086"/>
             <Label Content="* If there is no barcode, it is replaced by Date Time." HorizontalAlignment="Left" Margin="925,26,0,0" VerticalAlignment="Top" Width="385" FontSize="16" FontStyle="Italic"/>
@@ -121,6 +125,8 @@
             <ComboBox Name="combobox_name" HorizontalAlignment="Left" Margin="488,24,0,0" VerticalAlignment="Top" Width="209" SelectedIndex="0" Height="26" IsEditable="True">
 
             </ComboBox>
+            <Label Content="Image Quality (60~100)" HorizontalAlignment="Left" Margin="356,88,0,0" VerticalAlignment="Top" FontFamily="Input" FontWeight="Bold" FontSize="13" RenderTransformOrigin="0.244,2.086"/>
+            <xctk:IntegerUpDown Height="25" Width="70" MouseWheelActiveTrigger="MouseOver"  x:Name="select_quality" AllowSpin="True" AllowTextInput="False" Margin="540,89,813,657" Value="100" Maximum="100" Minimum="60" Increment="10" ValueChanged="select_quality_ValueChanged"/>
         </Grid>
     </Viewbox>
 </Window>
