@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 # Parse argument from command prompt to get path
 ap = argparse.ArgumentParser(description = "Insert path contains images.")
-ap.add_argument("path", help = "Image path must be in brackets", type = str)
+ap.add_argument("path", help = "Images path must be in brackets", type = str)
 arg = vars(ap.parse_args())
 
 # Read in the image and turn to grayscale
