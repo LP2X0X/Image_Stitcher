@@ -8,6 +8,7 @@ The purpose of this application is to stitch multiple images vertically or horiz
 * [Algorithm Implementation](#algorithm-implementation)
 * [Resources](#resources)
 * [References](#references)
+* [Documents](#documents)
 
 ## General Info
 The UI for this application is created using C# with WPF Framework.</br>
@@ -50,3 +51,7 @@ Once a translation matrix is obtained, opencv's warp Affine function is used to 
 ## References
 1. https://math.stackexchange.com/questions/237369/given-this-transformation-matrix-how-do-i-decompose-it-into-translation-rotati/417813#417813
 2. https://stackoverflow.com/questions/54483794/what-is-inside-how-to-decompose-an-affine-warp-matrix
+
+## Documents
+1. [Software Requirement Specification](https://docs.google.com/document/d/15WrhWoT1YypFDTgjju1YcEVTrSuhIc3lM7sdHldyAN4/edit?usp=sharing)
+2. [System Design Specification](https://docs.google.com/document/d/1pAWvcZ9oywys1ZpVrD5P6CMuZXhkgCsqDr2yt6ugUxk/edit?usp=sharing)
