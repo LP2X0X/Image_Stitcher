@@ -34,10 +34,10 @@ For keypoints and features detection, the **Scale-Invariant Feature Transform (S
 Once the <b>keypoints</b> and <b>features descriptors</b> are obtained from a pair of images, <i>brute-force-matching</i> is performed using <b>Euclidean distance</b> as the metric. For each point in one image, two points with <i>lowest</i> Euclidean distance in the other image is obtained using <b>KNN algorithm</b> (indicating the top two matches). The reason we want the top two matches rather than just the top one match is because we need to apply David Lowe’s ratio test for false-positive match pruning.
 </br>
 </br>
-With a list of matched points between two images, the <b>homography matrix</b> can be computed. However there can be oulier matches. In order to minimize the effect of outliers and to obtain the best homography matrix, RANSAC [2] algorithm is used.
+With a list of matched points between two images, the <b>Affine Transformation Matrix</b> can be computed. However, since the images are taken by a camera that move accurately horizontally and vertically, we only need to extract the <b>Translation Matrix</b> from the transformation matrix.
 </br>
 </br>
-Once a homography is obtained from one image to the other image, opencv's warp perspective function is used to transform the second image into the perspective of the first. The resultant image might be warped edges because of the change in perspective. Also, if the images are not of the same size, then there would be empty pixels in the stitched image. Therefore, I have implemented a method to elegantly remove these empty pixels and retain the maximum image information between a pair of images.
+Once a translation matrix is obtained, opencv's warp Affine function is used to transform the second image into the perspective of the first. The algorithm therefore is faster and more accurate compare to when we use homography matrix to warp image.
 </br>
 </br>
 </p>
@@ -45,9 +45,8 @@ Once a homography is obtained from one image to the other image, opencv's warp p
 ## Resources
 <p align="justify">
 [1] David Lowe, <b>"Distinctive Image Features from Scale-Invariant Keypoints"</b> - November, 2004 - International Journal of Computer Vision 60(2):91---110 - DOI: 10.1023/B:VISI.0000029664.99615.94 
-[2] Fischler, Martin A., and Robert C. Bolles, <b>"Random sample consensus: a paradigm for model fitting with applications to image analysis and automated cartography."</b> - Communications of the ACM 24.6 (1981): 381-395 - DOI:10.1145/358669.358692
 </p>
 
 ## References
-1. https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html
-2. https://math.stackexchange.com/questions/494238/how-to-compute-homography-matrix-h-from-corresponding-points-2d-2d-planar-homog
+1. https://math.stackexchange.com/questions/237369/given-this-transformation-matrix-how-do-i-decompose-it-into-translation-rotati/417813#417813
+2. https://stackoverflow.com/questions/54483794/what-is-inside-how-to-decompose-an-affine-warp-matrix
